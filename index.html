@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Action Rise Community — Connect · Run · Achieve</title>
+<meta name="description" content="Action Rise Community turns every run into progress. Browse events, level up a personal map of your city, earn points, and run with your crew — free to start on iOS and Android.">
+<meta name="theme-color" content="#07090C">
+<meta property="og:title" content="Action Rise Community">
+<meta property="og:description" content="Connect. Run. Achieve. The social running app with a personal map, events, points, and crews.">
+<link rel="icon" type="image/jpeg" href="assets/arc-logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding-top:72px; padding-bottom:108px; }
+  .hero::before{
+    content:""; position:absolute; z-index:-1; inset:-10% 0 20% 0;
+    background:radial-gradient(760px 460px at 74% 34%, rgba(199,250,75,.15), transparent 68%);
+    pointer-events:none;
+  }
+  .hero-inner{ display:grid; grid-template-columns:1.02fr .98fr; gap:64px; align-items:center; }
+  @media (max-width:940px){ .hero-inner{ grid-template-columns:1fr; gap:52px; } }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:7px 14px 7px 8px; margin-bottom:26px;
+    background:var(--surface); border:1px solid var(--border); border-radius:999px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--text-muted);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  }
+  .pill b{ color:var(--volt); font-weight:700; }
+  .pulse{ position:relative; width:8px; height:8px; border-radius:50%; background:var(--volt); margin-left:6px; }
+  .pulse::after{
+    content:""; position:absolute; inset:-4px; border-radius:50%;
+    border:1px solid var(--volt); opacity:.6; animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{ 0%{ transform:scale(.6); opacity:.7; } 100%{ transform:scale(1.7); opacity:0; } }
+
+  .hero-copy p.lede{ margin:24px 0 34px; }
+  .fine-print{ margin-top:18px; font-family:var(--font-mono); font-size:.76rem; letter-spacing:.08em; color:var(--text-dim); }
+
+  .hero-stats{ display:flex; flex-wrap:wrap; gap:14px 40px; margin-top:44px; padding-top:28px; border-top:1px solid var(--border); }
+  .stat .num{ font-size:1.6rem; font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
+  .stat .num em{ font-style:normal; color:var(--volt); }
+  .stat .cap{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim); margin-top:4px; }
+
+  /* ---------- map grid graphic ---------- */
+  .hero-visual{ display:flex; flex-direction:column; align-items:center; gap:18px; }
+  .grid-shell{
+    position:relative; width:100%; max-width:500px;
+    padding:24px;
+    background:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    border:1px solid var(--border);
+    border-radius:var(--radius-xl);
+    box-shadow:var(--shadow-lift);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+  }
+  .grid-shell::before{
+    content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+    background:linear-gradient(150deg, rgba(199,250,75,.5), transparent 42%, transparent 60%, rgba(61,224,200,.32));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; padding:1px;
+  }
+  .grid-chrome{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--font-mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--text-dim); margin-bottom:16px;
+  }
+  .grid-chrome .live{ display:inline-flex; align-items:center; gap:7px; color:var(--volt); }
+  .grid-chrome .live i{ width:6px; height:6px; border-radius:50%; background:var(--volt); font-style:normal; box-shadow:0 0 10px var(--volt); }
+
+  .hero-grid{
+    --cols:14;
+    display:grid;
+    grid-template-columns:repeat(var(--cols), 1fr);
+    gap:5px;
+    width:100%;
+  }
+  .cell{
+    aspect-ratio:1/1;
+    border-radius:4px;
+    border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.018);
+    opacity:0;
+    transform:scale(.4);
+  }
+  .cell.bronze{ background:var(--bronze-fill); border-color:rgba(210,147,79,.7); box-shadow:0 0 10px rgba(210,147,79,.28); }
+  .cell.silver{ background:var(--silver-fill); border-color:rgba(143,182,216,.75); box-shadow:0 0 12px rgba(143,182,216,.3); }
+  .cell.gold{ background:var(--gold-fill); border-color:rgba(242,194,78,.85); box-shadow:0 0 14px rgba(242,194,78,.38); }
+  .cell.platinum{ background:var(--platinum-fill); border-color:rgba(185,139,240,.9); box-shadow:0 0 18px rgba(185,139,240,.45); }
+  .hero-grid.in-view .cell{ animation:blockIn .55s cubic-bezier(.2,.8,.2,1) forwards; animation-delay:var(--d); }
+  @keyframes blockIn{ 60%{ transform:scale(1.06); } to{ opacity:1; transform:scale(1); } }
+
+  .grid-legend{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 16px;
+    font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; color:var(--text-dim); text-transform:uppercase;
+  }
+  .grid-legend span.item{ display:inline-flex; align-items:center; gap:7px; }
+  .grid-legend .dot{ width:9px; height:9px; border-radius:3px; }
+
+  /* ---------- sections ---------- */
+  .section{ position:relative; padding:104px 0; }
+  .section--alt{ background:linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,0)); border-block:1px solid var(--border); }
+  .feature{ display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+  @media (max-width:880px){ .feature{ grid-template-columns:1fr; gap:44px; } }
+  .feature > *{ min-width:0; }
+  .feature.reverse .feature-visual{ order:-1; }
+  @media (max-width:880px){ .feature.reverse .feature-visual{ order:0; } }
+  .feature-body p.lede{ margin:18px 0 28px; max-width:none; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in-view{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+  .tag{
+    font-family:var(--font-mono); font-size:.76rem;
+    padding:8px 15px; border-radius:999px;
+    border:1px solid var(--border); background:var(--surface); color:var(--text-muted);
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .tag:hover{ border-color:rgba(199,250,75,.45); color:var(--text); }
+
+  /* tier ladder */
+  .ladder{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:1px; background:var(--border);
+    border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden;
+  }
+  @media (max-width:560px){ .ladder{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  .ladder-step{ padding:24px 12px; text-align:center; background:var(--paper-alt); transition:background-color .25s ease; }
+  .ladder-step:hover{ background:#151B24; }
+  .ladder-step .swatch{ width:30px; height:30px; border-radius:8px; margin:0 auto 13px; }
+  .ladder-step .name{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text); }
+  .ladder-step:nth-child(1) .swatch{ background:var(--bronze); box-shadow:0 0 18px rgba(210,147,79,.45); }
+  .ladder-step:nth-child(2) .swatch{ background:var(--silver); box-shadow:0 0 18px rgba(143,182,216,.45); }
+  .ladder-step:nth-child(3) .swatch{ background:var(--gold); box-shadow:0 0 20px rgba(242,194,78,.5); }
+  .ladder-step:nth-child(4) .swatch{ background:var(--platinum); box-shadow:0 0 22px rgba(185,139,240,.55); }
+  .cap-note{ margin-top:22px; font-size:.92rem; color:var(--text-muted); }
+  .cap-note strong{ color:var(--volt); }
+
+  /* photo + floating-card collage */
+  .collage{ position:relative; padding:0 24px 44px 0; }
+  .collage--right{ padding:0 0 44px 24px; }
+  .collage-photo{
+    width:100%; aspect-ratio:5/4; object-fit:cover;
+    border-radius:var(--radius-lg); border:1px solid var(--border);
+    filter:saturate(.92) contrast(1.06) brightness(.86);
+    box-shadow:var(--shadow-lift);
+  }
+  .collage::after{
+    content:""; position:absolute; inset:0 24px 44px 0; border-radius:var(--radius-lg); pointer-events:none;
+    background:linear-gradient(180deg, rgba(7,9,12,0) 40%, rgba(7,9,12,.55) 100%);
+  }
+  .collage--right::after{ inset:0 0 44px 24px; }
+  .collage-card{
+    position:absolute; z-index:2; left:auto; right:0; bottom:0; max-width:78%;
+    background:rgba(17,22,32,.82);
+    border:1px solid var(--border-hi); border-radius:var(--radius-md);
+    padding:22px 24px;
+    box-shadow:var(--shadow-lift);
+    -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+  }
+  .collage--right .collage-card{ right:auto; left:0; }
+  @media (max-width:520px){
+    .collage-card{ max-width:none; left:12px; right:12px; }
+    .collage--right .collage-card{ left:12px; right:12px; }
+  }
+
+  /* rewards mock */
+  .points-row{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px; }
+  .points-total{ font-size:2.2rem; font-weight:700; letter-spacing:-0.03em; color:var(--volt); }
+  .points-label{ font-family:var(--font-mono); font-size:.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.1em; }
+  .bar{ height:8px; border-radius:99px; background:rgba(255,255,255,.09); overflow:hidden; margin-bottom:22px; }
+  .bar-fill{ height:100%; width:0; background:linear-gradient(90deg, var(--teal), var(--volt)); border-radius:99px; box-shadow:0 0 16px rgba(199,250,75,.5); transition:width 1.4s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in-view .bar-fill{ width:64%; }
+  .reward-item{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 12px; padding:13px 0; border-top:1px solid var(--border); font-size:.92rem; }
+  .reward-item:first-of-type{ border-top:none; }
+  .reward-item .cost{ font-family:var(--font-mono); font-size:.82rem; color:var(--volt); }
+
+  /* leaderboard mock */
+  .board-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:14px; box-shadow:var(--shadow-soft);
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  }
+  .board-row{ display:flex; align-items:center; gap:14px; padding:15px 16px; border-radius:var(--radius-sm); }
+  .board-row.me{
+    background:linear-gradient(90deg, rgba(199,250,75,.14), rgba(199,250,75,.03));
+    border:1px solid rgba(199,250,75,.32);
+  }
+  .rank{ font-family:var(--font-mono); font-weight:700; width:20px; color:var(--text-dim); }
+  .board-row.me .rank{ color:var(--volt); }
+  .avatar{ width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.10); flex-shrink:0; }
+  .board-row.me .avatar{ background:linear-gradient(140deg, var(--volt), var(--teal)); box-shadow:0 0 16px rgba(199,250,75,.4); }
+  .name-bar{ flex:1; height:8px; border-radius:99px; background:rgba(255,255,255,.10); }
+  .board-row.me .name-bar{ background:var(--volt); width:70%; }
+  .board-row:not(.me):nth-child(1) .name-bar{ width:88%; }
+  .board-row:not(.me):nth-child(3) .name-bar{ width:52%; }
+  .pts{ font-family:var(--font-mono); font-size:.78rem; color:var(--text-dim); }
+  .board-row.me .pts{ color:var(--text); }
+
+  /* premium */
+  .plans{ display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:52px; align-items:start; }
+  @media (max-width:720px){ .plans{ grid-template-columns:1fr; } }
+  .plan{ position:relative; border-radius:var(--radius-lg); padding:38px; border:1px solid var(--border); }
+  .plan-free{ background:var(--surface); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); }
+  .plan-premium{
+    background:linear-gradient(165deg, rgba(199,250,75,.10), rgba(61,224,200,.05) 45%, rgba(255,255,255,.02));
+    border-color:rgba(199,250,75,.35);
+    box-shadow:0 30px 80px rgba(199,250,75,.10);
+  }
+  .plan-badge{
+    position:absolute; top:-11px; right:28px;
+    font-family:var(--font-mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--volt); color:#07090C; font-weight:700;
+    padding:5px 12px; border-radius:999px;
+  }
+  .plan h3{ font-size:1.35rem; margin-bottom:6px; }
+  .plan .tagline{ font-family:var(--font-mono); font-size:.74rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:.12em; margin:0 0 4px; }
+  .plan-premium .tagline{ color:var(--volt); }
+  .plan ul{ margin:26px 0 0; display:flex; flex-direction:column; gap:13px; }
+  .plan li{ font-size:.95rem; color:var(--text-muted); padding-left:26px; position:relative; }
+  .plan li::before{
+    content:""; position:absolute; left:0; top:.42em; width:14px; height:14px; border-radius:50%;
+    background:rgba(61,224,200,.16); border:1px solid var(--teal);
+  }
+  .plan-premium li{ color:var(--text); }
+  .plan-premium li::before{ background:rgba(199,250,75,.2); border-color:var(--volt); }
+
+  /* cta band */
+  .cta-band{ position:relative; overflow:hidden; padding:120px 0; text-align:center; border-top:1px solid var(--border); }
+  .cta-band::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(620px 340px at 50% 0%, rgba(199,250,75,.16), transparent 68%),
+      radial-gradient(700px 420px at 50% 120%, rgba(61,224,200,.12), transparent 66%);
+  }
+  .cta-band .h2{ margin-bottom:20px; }
+  .cta-band .lede{ margin:0 auto 40px; }
+  .cta-band .btn-row{ justify-content:center; }
+  .cta-band .eyebrow{ justify-content:center; }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img class="brand-mark" src="assets/arc-logo.jpg" alt="">
+      <span class="brand-name">Action Rise Community</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="nav-link" href="#map">Map</a>
+      <a class="nav-link" href="#events">Events</a>
+      <a class="nav-link" href="#rewards">Rewards</a>
+      <a class="nav-link" href="#groups">Groups</a>
+      <a class="nav-link" href="#premium">Premium</a>
+    </nav>
+    <a class="btn btn-primary btn-sm nav-cta" href="#get-app">Get the app</a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+      <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-drawer" id="navDrawer" hidden>
+  <nav aria-label="Mobile">
+    <a class="drawer-link" href="#map" style="--d:40ms">Map</a>
+    <a class="drawer-link" href="#events" style="--d:80ms">Events</a>
+    <a class="drawer-link" href="#rewards" style="--d:120ms">Rewards</a>
+    <a class="drawer-link" href="#groups" style="--d:160ms">Groups</a>
+    <a class="drawer-link" href="#premium" style="--d:200ms">Premium</a>
+  </nav>
+  <a class="btn btn-primary drawer-cta" href="#get-app">Get the app</a>
+</div>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="pill">Personal running map <b>Live</b><span class="pulse"></span></span>
+        <h1 class="h1"><span class="grad-text">Run the grid.<br>Level up<br>your</span> <mark class="hl">city</mark>.</h1>
+        <p class="lede">Action Rise Community turns every mile into a living map of where you run — 500‑metre blocks that climb from Bronze to Platinum the more you show up. It's yours alone: no leaderboard raids, nobody can take a block from you.</p>
+        <div class="btn-row" id="get-app">
+          <a class="btn btn-primary" href="#">
+            <svg class="store-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85s-1.85-.83-3-.81c-1.55.02-3 .9-3.8 2.29-1.62 2.8-.41 6.95 1.16 9.22.77 1.11 1.68 2.36 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.8.75 3.02.72c1.25-.02 2.04-1.13 2.8-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.42-3.68zM14.2 5.1c.63-.77 1.06-1.83.94-2.9-.91.04-2.01.61-2.66 1.37-.58.68-1.09 1.76-.95 2.8 1.01.08 2.04-.51 2.67-1.27z"/></svg>
+            App Store
+          </a>
+          <a class="btn btn-outline" href="#">
+            <svg class="store-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.26.28-.4.7-.4 1.25v16.9c0 .55.14.97.4 1.25l.06.05 9.47-9.47v-.22L3.66 2.6l-.06-.3zM16.9 15.6l-3.16-3.16v-.22l3.16-3.16.07.04 3.74 2.13c1.07.6 1.07 1.6 0 2.21l-3.74 2.12-.07.04zM15.6 16.9L12.4 13.7 3.6 22.5c.35.37.93.42 1.58.05l10.42-5.65zM15.6 7.1L5.18 1.45C4.53 1.08 3.95 1.13 3.6 1.5l8.8 8.8 3.2-3.2z"/></svg>
+            Google Play
+          </a>
+        </div>
+        <p class="fine-print">FREE TO START · iOS &amp; ANDROID</p>
+
+        <div class="hero-stats">
+          <div class="stat"><div class="num">500<em>m</em></div><div class="cap">Block size</div></div>
+          <div class="stat"><div class="num">4</div><div class="cap">Tiers to climb</div></div>
+          <div class="stat"><div class="num">Auto</div><div class="cap">Health sync</div></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="grid-shell">
+          <div class="grid-chrome">
+            <span>Your map · Athens</span>
+            <span class="live"><i></i>Tracking</span>
+          </div>
+          <div class="hero-grid" id="heroGrid" role="img" aria-label="Illustration of a city map divided into blocks, coloured bronze through platinum to show a runner's progress from left to right."></div>
+        </div>
+        <div class="grid-legend">
+          <span class="item"><span class="dot" style="background:var(--bronze)"></span>Bronze</span>
+          <span class="item"><span class="dot" style="background:var(--silver)"></span>Silver</span>
+          <span class="item"><span class="dot" style="background:var(--gold)"></span>Gold</span>
+          <span class="item"><span class="dot" style="background:var(--platinum)"></span>Platinum</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="map">
+    <div class="wrap feature">
+      <div class="feature-body reveal">
+        <p class="eyebrow">The map</p>
+        <h2 class="h2">Your city, one run at a time.</h2>
+        <p class="lede">Every eligible run from HealthKit or Google Fit counts automatically — not just the ones inside an event. Revisit a block enough times and it climbs the ladder.</p>
+        <div class="ladder">
+          <div class="ladder-step"><div class="swatch"></div><div class="name">Bronze</div></div>
+          <div class="ladder-step"><div class="swatch"></div><div class="name">Silver</div></div>
+          <div class="ladder-step"><div class="swatch"></div><div class="name">Gold</div></div>
+          <div class="ladder-step"><div class="swatch"></div><div class="name">Platinum</div></div>
+        </div>
+        <p class="cap-note">Free accounts discover up to <strong>500 blocks</strong>. Premium removes the cap.</p>
+      </div>
+      <div class="feature-visual reveal">
+        <div class="grid-shell" style="max-width:440px; margin:0 auto;">
+          <div class="grid-chrome">
+            <span>Week 12</span>
+            <span class="live"><i></i>+18 blocks</span>
+          </div>
+          <div class="hero-grid" id="mapGrid" role="img" aria-label="A smaller map illustration matching the hero graphic."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="events">
+    <div class="wrap feature reverse">
+      <div class="feature-body reveal">
+        <p class="eyebrow">Events</p>
+        <h2 class="h2">Show up for something.</h2>
+        <p class="lede">Browse single-day races and multi-day challenges, filter by category, difficulty, date, location, or price, and register in a couple of taps. Finish, and Action Rise Community validates your effort straight from your workout data — no manual proof required.</p>
+        <div class="tag-row">
+          <span class="tag">Free &amp; paid</span>
+          <span class="tag">Single-day</span>
+          <span class="tag">Multi-day</span>
+          <span class="tag">Auto-validated</span>
+        </div>
+      </div>
+      <div class="feature-visual reveal">
+        <div class="collage">
+          <img class="collage-photo" src="assets/events.jpg" alt="Runners cheering mid-race, arms raised, at a crowded local running event.">
+          <div class="collage-card">
+            <div class="tag-row">
+              <span class="tag">10K · Saturday</span>
+              <span class="tag">3-day challenge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rewards">
+    <div class="wrap feature">
+      <div class="feature-body reveal">
+        <p class="eyebrow">Points &amp; rewards</p>
+        <h2 class="h2">Every finish pays you back.</h2>
+        <p class="lede">Earn points for every event and achievement, then spend them in the rewards marketplace — discounts, merch, exclusive access. Your lifetime total is always on your profile.</p>
+      </div>
+      <div class="feature-visual reveal">
+        <div class="collage collage--right">
+          <img class="collage-photo" src="assets/rewards.jpg" alt="Runner doing a core workout on a mat, tracking effort on a fitness watch.">
+          <div class="collage-card reward-card">
+            <div class="points-row">
+              <span class="points-total">2,480</span>
+              <span class="points-label">Points balance</span>
+            </div>
+            <div class="bar"><div class="bar-fill"></div></div>
+            <div class="reward-item"><span>15% off next event</span><span class="cost">800 pts</span></div>
+            <div class="reward-item"><span>Action Rise Community cap</span><span class="cost">1,200 pts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="groups">
+    <div class="wrap feature reverse">
+      <div class="feature-body reveal">
+        <p class="eyebrow">Groups &amp; leaderboards</p>
+        <h2 class="h2">Better with a crew.</h2>
+        <p class="lede">Start a group for your run club or join one that already exists — public or invite-only. Track where you land on the global leaderboard, or opt out and keep your progress to yourself. Unlock achievements as you go.</p>
+      </div>
+      <div class="feature-visual reveal">
+        <div class="board-card">
+          <div class="board-row"><span class="rank">1</span><span class="avatar"></span><span class="name-bar"></span><span class="pts">5,120</span></div>
+          <div class="board-row me"><span class="rank">2</span><span class="avatar"></span><span class="name-bar"></span><span class="pts">4,760 · you</span></div>
+          <div class="board-row"><span class="rank">3</span><span class="avatar"></span><span class="name-bar"></span><span class="pts">3,980</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="premium">
+    <div class="wrap">
+      <div class="reveal" style="max-width:660px;">
+        <p class="eyebrow">Premium</p>
+        <h2 class="h2">Free to start. Upgrade when you're ready.</h2>
+        <p class="lede">Simple monthly or annual plans, cancel anytime — compare full details in the app.</p>
+      </div>
+      <div class="plans">
+        <div class="plan plan-free reveal">
+          <p class="tagline">Free</p>
+          <h3>Get moving</h3>
+          <ul>
+            <li>Browse and join events</li>
+            <li>Earn points &amp; redeem rewards</li>
+            <li>Groups, leaderboards, achievements</li>
+            <li>First 500 map blocks</li>
+          </ul>
+        </div>
+        <div class="plan plan-premium reveal">
+          <span class="plan-badge">Most popular</span>
+          <p class="tagline">Premium</p>
+          <h3>Go further</h3>
+          <ul>
+            <li>Unlimited map blocks</li>
+            <li>Discounts on paid events</li>
+            <li>Identity perks throughout the app</li>
+            <li>Monthly or annual billing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <p class="eyebrow">Connect · Run · Achieve</p>
+      <h2 class="h2 grad-text">Your city is waiting to be run.</h2>
+      <p class="lede">Free to start, on iOS and Android.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">Get it on the App Store</a>
+        <a class="btn btn-outline" href="#">Get it on Google Play</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="brand" href="#top">
+        <img class="brand-mark" src="assets/arc-logo.jpg" alt="">
+        <span class="brand-name">Action Rise Community</span>
+      </a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#map">Map</a>
+        <a href="#events">Events</a>
+        <a href="#rewards">Rewards</a>
+        <a href="#groups">Groups</a>
+        <a href="#premium">Premium</a>
+      </nav>
+    </div>
+    <div class="footer-legal">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="gdpr.html">GDPR &amp; your data rights</a>
+      <p class="footer-meta">© 2026 Action Rise Community · operated by ACTION TRAINING SL Μ.ΙΚΕ</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function tierForCol(col, cols){
+    var t = col / (cols - 1);
+    if (t < 0.22) return 'bronze';
+    if (t < 0.5) return 'silver';
+    if (t < 0.78) return 'gold';
+    return 'platinum';
+  }
+  function pathRow(col, rows){
+    var mid = rows / 2;
+    return Math.round(mid + Math.sin(col * 0.55) * 1.6 + Math.sin(col * 0.19) * 0.8);
+  }
+  function hash(c, r){
+    var v = Math.sin(c * 12.9898 + r * 78.233) * 43758.5453;
+    return Math.abs(v - Math.floor(v));
+  }
+
+  function buildGrid(el, cols, rows){
+    el.style.setProperty('--cols', cols);
+    el.innerHTML = '';
+    var delayStep = 24;
+
+    // trace a continuous route: bridge the vertical gap between adjacent columns
+    var path = {};
+    var clamp = function(v){ return Math.max(0, Math.min(rows - 1, v)); };
+    for (var col = 0; col < cols; col++){
+      var cur = clamp(pathRow(col, rows));
+      var prev = clamp(pathRow(Math.max(col - 1, 0), rows));
+      var lo = Math.min(cur, prev), hi = Math.max(cur, prev);
+      for (var rr = lo; rr <= hi; rr++) path[col + ':' + rr] = true;
+    }
+
+    for (var r = 0; r < rows; r++){
+      for (var c = 0; c < cols; c++){
+        var cell = document.createElement('div');
+        cell.className = 'cell';
+        var onPath = path[c + ':' + r] === true;
+        var scatter = !onPath && hash(c, r) < 0.06;
+        if (onPath || scatter){
+          cell.classList.add(tierForCol(c, cols));
+        }
+        cell.style.setProperty('--d', (c * delayStep + hash(c, r) * 90) + 'ms');
+        if (reduceMotion){
+          cell.style.opacity = '1';
+          cell.style.transform = 'none';
+        }
+        el.appendChild(cell);
+      }
+    }
+  }
+
+  var heroGrid = document.getElementById('heroGrid');
+  var mapGrid = document.getElementById('mapGrid');
+  buildGrid(heroGrid, 14, 8);
+  buildGrid(mapGrid, 10, 6);
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  [heroGrid, mapGrid].forEach(function(g){ io.observe(g); });
+
+  var revealItems = document.querySelectorAll('.reveal');
+  if (reduceMotion){
+    revealItems.forEach(function(el){ el.classList.add('in-view'); });
+  } else {
+    var revealIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          revealIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealItems.forEach(function(el){ revealIo.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* Legal document layout: privacy policy, GDPR — shared by both pages */
+
+.doc{ position:relative; padding-top:72px; padding-bottom:104px; max-width:888px; }
+.doc::before{
+  content:""; position:absolute; z-index:-1; inset:-80px 0 auto 0; height:420px;
+  background:radial-gradient(760px 340px at 50% 0%, rgba(199,250,75,.11), transparent 72%);
+  pointer-events:none;
+}
+
+.doc-header{ margin-bottom:36px; }
+.doc-title{ font-size:clamp(2.05rem, 5.4vw, 3.6rem); margin:0 0 18px; }
+.doc-lede{ max-width:none; margin:0 0 18px; }
+.doc-meta{ font-family:var(--font-mono); font-size:.76rem; color:var(--text-dim); }
+.doc-meta a{ color:var(--volt); }
+.doc-meta a:hover{ text-decoration:underline; }
+
+/* draft/legal-review callout */
+.notice{
+  background:linear-gradient(150deg, rgba(255,194,77,.10), rgba(255,194,77,.03));
+  border:1px solid rgba(255,194,77,.32);
+  border-radius:var(--radius-md);
+  padding:22px 26px;
+  margin-bottom:44px;
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+}
+.notice-title{
+  font-family:var(--font-mono); font-size:.74rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--amber);
+  margin:0 0 10px;
+}
+.notice p{ margin:0; font-size:.92rem; color:var(--text-muted); line-height:1.65; }
+.notice p + p{ margin-top:8px; }
+
+/* table of contents */
+.doc-toc{
+  display:grid; grid-template-columns:1fr 1fr; gap:6px 24px;
+  padding:22px 26px; margin-bottom:60px;
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+}
+.doc-toc a{
+  font-size:.89rem; color:var(--text-muted); padding:6px 0;
+  transition:color .18s ease, padding-left .18s ease;
+}
+.doc-toc a:hover{ color:var(--volt); padding-left:5px; }
+@media (max-width:640px){ .doc-toc{ grid-template-columns:1fr; } }
+
+.doc-section{ padding:44px 0; border-top:1px solid var(--border); scroll-margin-top:calc(var(--header-h) + 16px); }
+.doc-section:first-of-type{ border-top:none; padding-top:0; }
+.doc-section p.doc-num{
+  font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.16em;
+  color:var(--volt); margin:0 0 12px;
+}
+.doc-section h2{ font-size:clamp(1.4rem, 2.5vw, 1.85rem); margin-bottom:18px; }
+.doc-section p{ font-size:.98rem; line-height:1.75; color:var(--text-muted); margin:0 0 15px; }
+.doc-section p:last-child{ margin-bottom:0; }
+.doc-section strong{ color:var(--text); font-weight:700; }
+.doc-section a{ color:var(--volt); }
+.doc-section a:hover{ text-decoration:underline; }
+
+.doc-list{ display:flex; flex-direction:column; gap:13px; margin:0 0 15px; }
+.doc-list li{
+  position:relative; padding-left:24px; font-size:.98rem; line-height:1.7; color:var(--text-muted);
+}
+.doc-list li strong{ color:var(--text); }
+.doc-list li::before{
+  content:""; position:absolute; left:0; top:.6em; width:7px; height:7px; border-radius:2px;
+  background:var(--volt); box-shadow:0 0 10px rgba(199,250,75,.55);
+}
+
+.doc-table{ width:100%; border-collapse:collapse; margin:0; font-size:.92rem; color:var(--text-muted); }
+.doc-table th, .doc-table td{ text-align:left; padding:13px 15px; border-bottom:1px solid var(--border); vertical-align:top; }
+.doc-table th{
+  font-family:var(--font-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--text-dim); font-weight:700;
+}
+.doc-table td strong{ color:var(--text); }
+.doc-table tr:last-child td{ border-bottom:none; }
+.doc-table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--border); border-radius:var(--radius-md);
+  background:var(--surface); padding:6px 10px; margin:0 0 15px;
+}
+
+.entity-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+  padding:22px 26px; margin:18px 0;
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+}
+.entity-name{ font-weight:700; font-size:1rem; margin:0 0 10px; color:var(--text); }
+.entity-line{ font-size:.88rem; color:var(--text-muted); line-height:1.65; margin:0 0 6px; }
+.entity-line:last-child{ margin-bottom:0; }
+
+.placeholder{
+  background:rgba(255,107,112,.14);
+  color:var(--coral);
+  border:1px solid rgba(255,107,112,.3);
+  border-radius:5px; padding:0 6px; font-family:var(--font-mono); font-size:.85em;
+}
+
+.back-home{ margin-top:60px; white-space:normal; text-align:center; max-width:100%; }
