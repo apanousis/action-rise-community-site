@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Action Rise Community — Connect · Run · Achieve</title>
-<meta name="description" content="Action Rise Community turns every run into progress. Browse events, level up a personal map of your city, earn points, and run with your crew — free to start on iOS and Android.">
+<meta name="description" content="Action Rise Community turns every run into progress. Browse events, level up a personal map of your city, earn points, and run with your crew. Premium on iOS and Android from €2.99/month, with a 7-day free trial.">
 <meta name="theme-color" content="#07090C">
 <meta property="og:title" content="Action Rise Community">
 <meta property="og:description" content="Connect. Run. Achieve. The social running app with a personal map, events, points, and crews.">
@@ -208,7 +208,14 @@
   .plans{ display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:52px; align-items:start; }
   @media (max-width:720px){ .plans{ grid-template-columns:1fr; } }
   .plan{ position:relative; border-radius:var(--radius-lg); padding:38px; border:1px solid var(--border); }
-  .plan-free{ background:var(--surface); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); }
+  .plan-benefits{ margin-top:26px; background:var(--surface); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); }
+  .plan.plan-benefits ul{ display:grid; grid-template-columns:1fr 1fr; gap:13px 26px; }
+  @media (max-width:720px){ .plan.plan-benefits ul{ grid-template-columns:1fr; } }
+  .plan-benefits li{ color:var(--text); }
+  .price{ font-size:2.6rem; font-weight:700; letter-spacing:-0.03em; margin:10px 0 4px; line-height:1.1; }
+  .price span{ font-size:1rem; font-weight:500; color:var(--text-muted); letter-spacing:0; margin-left:4px; }
+  .price-note{ font-size:.9rem; color:var(--text-muted); margin:0; }
+  .plan-benefits .price-note{ margin-top:26px; }
   .plan-premium{
     background:linear-gradient(165deg, rgba(199,250,75,.10), rgba(61,224,200,.05) 45%, rgba(255,255,255,.02));
     border-color:rgba(199,250,75,.35);
@@ -322,14 +329,14 @@
       <div class="feature-body reveal">
         <p class="eyebrow">The map</p>
         <h2 class="h2">Your city, one run at a time.</h2>
-        <p class="lede">Every eligible run from HealthKit or Google Fit counts automatically — not just the ones inside an event. Revisit a block enough times and it climbs the ladder.</p>
+        <p class="lede">Runs sync automatically from Apple Health or Health Connect and land in your Workouts history. Send each one to your map or to an event — it counts once, where you choose. Revisit a block enough times and it climbs the ladder.</p>
         <div class="ladder">
           <div class="ladder-step"><div class="swatch"></div><div class="name">Bronze</div></div>
           <div class="ladder-step"><div class="swatch"></div><div class="name">Silver</div></div>
           <div class="ladder-step"><div class="swatch"></div><div class="name">Gold</div></div>
           <div class="ladder-step"><div class="swatch"></div><div class="name">Platinum</div></div>
         </div>
-        <p class="cap-note">Free accounts discover up to <strong>500 blocks</strong>. Premium removes the cap.</p>
+        <p class="cap-note">With Premium your map has <strong>no block cap</strong> — keep exploring.</p>
       </div>
       <div class="feature-visual reveal">
         <div class="grid-shell" style="max-width:440px; margin:0 auto;">
@@ -350,7 +357,7 @@
         <h2 class="h2">Show up for something.</h2>
         <p class="lede">Browse single-day races and multi-day challenges, filter by category, difficulty, date, location, or price, and register in a couple of taps. Finish, and Action Rise Community validates your effort straight from your workout data — no manual proof required.</p>
         <div class="tag-row">
-          <span class="tag">Free &amp; paid</span>
+          <span class="tag">Premium-exclusive</span>
           <span class="tag">Single-day</span>
           <span class="tag">Multi-day</span>
           <span class="tag">Auto-validated</span>
@@ -375,7 +382,7 @@
       <div class="feature-body reveal">
         <p class="eyebrow">Points &amp; rewards</p>
         <h2 class="h2">Every finish pays you back.</h2>
-        <p class="lede">Earn points for every event and achievement, then spend them in the rewards marketplace — discounts, merch, exclusive access. Your lifetime total is always on your profile.</p>
+        <p class="lede">Earn points from events and from levelling up your map, then spend them in the rewards marketplace — discount codes, gift cards and raffles. Every point you earn also moves you up the level ladder and unlocks badges, and spending never costs you a level.</p>
       </div>
       <div class="feature-visual reveal">
         <div class="collage collage--right">
@@ -399,7 +406,7 @@
       <div class="feature-body reveal">
         <p class="eyebrow">Groups &amp; leaderboards</p>
         <h2 class="h2">Better with a crew.</h2>
-        <p class="lede">Start a group for your run club or join one that already exists — public or invite-only. Track where you land on the global leaderboard, or opt out and keep your progress to yourself. Unlock achievements as you go.</p>
+        <p class="lede">Start a group for your run club or join one that already exists — public or invite-only. Track where you land on the global leaderboard and chase a spot on the podium, or opt out and keep your progress to yourself.</p>
       </div>
       <div class="feature-visual reveal">
         <div class="board-card">
@@ -415,31 +422,34 @@
     <div class="wrap">
       <div class="reveal" style="max-width:660px;">
         <p class="eyebrow">Premium</p>
-        <h2 class="h2">Free to start. Upgrade when you're ready.</h2>
-        <p class="lede">Simple monthly or annual plans, cancel anytime — compare full details in the app.</p>
+        <h2 class="h2">One membership. Everything included.</h2>
+        <p class="lede">Start with a 7-day free trial, then choose monthly or annual billing. Cancel anytime from the app.</p>
       </div>
       <div class="plans">
-        <div class="plan plan-free reveal">
-          <p class="tagline">Free</p>
-          <h3>Get moving</h3>
-          <ul>
-            <li>Browse and join events</li>
-            <li>Earn points &amp; redeem rewards</li>
-            <li>Groups, leaderboards, achievements</li>
-            <li>First 500 map blocks</li>
-          </ul>
+        <div class="plan plan-premium reveal">
+          <span class="plan-badge">7-day free trial</span>
+          <p class="tagline">Monthly</p>
+          <p class="price">€2.99<span>/month</span></p>
+          <p class="price-note">Billed every month</p>
         </div>
         <div class="plan plan-premium reveal">
-          <span class="plan-badge">Most popular</span>
-          <p class="tagline">Premium</p>
-          <h3>Go further</h3>
-          <ul>
-            <li>Unlimited map blocks</li>
-            <li>Discounts on paid events</li>
-            <li>Identity perks throughout the app</li>
-            <li>Monthly or annual billing</li>
-          </ul>
+          <span class="plan-badge">7-day free trial</span>
+          <p class="tagline">Annual</p>
+          <p class="price">€35.88<span>/year</span></p>
+          <p class="price-note">Billed once a year</p>
         </div>
+      </div>
+      <div class="plan plan-benefits reveal">
+        <h3>Every plan includes</h3>
+        <ul>
+          <li>Unlimited map blocks</li>
+          <li>Premium-exclusive events</li>
+          <li>Discounts on paid events</li>
+          <li>Points, rewards, levels &amp; badges</li>
+          <li>Groups and leaderboards</li>
+          <li>A gold-ringed Premium identity across the app</li>
+        </ul>
+        <p class="price-note">The free trial is once per account. Current offers and full plan details are shown in the app before you subscribe.</p>
       </div>
     </div>
   </section>
