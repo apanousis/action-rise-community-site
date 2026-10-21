@@ -54,7 +54,7 @@
       <p class="eyebrow">Legal</p>
       <h1 class="h1 doc-title">Privacy Policy</h1>
       <p class="lede doc-lede">How Action Rise Community collects, uses, shares, and protects your personal data — including the health and location data that power the app's running map and event validation.</p>
-      <p class="doc-meta">Last updated: 7 August 2026 · Applies to the Action Rise Community mobile app and this website</p>
+      <p class="doc-meta">Last updated: 21 October 2026 · Applies to the Action Rise Community mobile app and this website</p>
     </div>
 
     <nav class="doc-toc" aria-label="Sections in this policy">
@@ -64,14 +64,15 @@
       <a href="#legal-bases">4. Legal bases</a>
       <a href="#sharing">5. Who we share data with</a>
       <a href="#ai">6. AI and your health data</a>
-      <a href="#transfers">7. International transfers</a>
-      <a href="#retention">8. Retention</a>
-      <a href="#security">9. Security</a>
-      <a href="#your-rights">10. Your rights</a>
-      <a href="#children">11. Children's privacy</a>
-      <a href="#cookies">12. Cookies on this website</a>
-      <a href="#changes">13. Changes to this policy</a>
-      <a href="#contact">14. Contact us</a>
+      <a href="#garmin">7. Garmin data</a>
+      <a href="#transfers">8. International transfers</a>
+      <a href="#retention">9. Retention</a>
+      <a href="#security">10. Security</a>
+      <a href="#your-rights">11. Your rights</a>
+      <a href="#children">12. Children's privacy</a>
+      <a href="#cookies">13. Cookies on this website</a>
+      <a href="#changes">14. Changes to this policy</a>
+      <a href="#contact">15. Contact us</a>
     </nav>
 
     <article class="doc-body">
@@ -95,7 +96,7 @@
             <thead><tr><th>Category</th><th>Examples</th><th>Source</th></tr></thead>
             <tbody>
               <tr><td>Account &amp; profile</td><td>Name, email address, profile photo, sign-in method</td><td>You, via Clerk (email, Google Sign-In, Apple Sign-In)</td></tr>
-              <tr><td>Health &amp; activity data</td><td>Runs, distance, pace, duration, workout timestamps</td><td>Apple HealthKit (iOS) or Google Fit (Android), with your permission</td></tr>
+              <tr><td>Health &amp; activity data</td><td>Runs, distance, pace, duration, workout timestamps</td><td>Apple HealthKit (iOS) or Google Fit (Android), with your permission; Garmin, if you connect your Garmin account (see <a href="#garmin">Garmin data</a>)</td></tr>
               <tr><td>Location data</td><td>GPS routes used to fill in your personal map blocks; event location for search &amp; filtering</td><td>Your device, with your permission</td></tr>
               <tr><td>Event &amp; activity records</td><td>Registrations, check-ins, progress logs, points, achievements, group memberships</td><td>Generated as you use the App</td></tr>
               <tr><td>Payment &amp; billing data</td><td>Purchase history, subscription status, invoice details</td><td>Stripe (card details are handled directly by Stripe — we never see or store full card numbers)</td></tr>
@@ -129,7 +130,7 @@
         <p>Where GDPR applies, we rely on the following legal bases (Article 6 GDPR):</p>
         <ul class="doc-list">
           <li><strong>Contract</strong> — account setup, event registration, subscriptions, and the core map/points features you sign up for.</li>
-          <li><strong>Consent</strong> — HealthKit/Google Fit access, location access, and push notifications, which your device asks you to grant separately. You can withdraw consent at any time in your device settings, which will limit the related features.</li>
+          <li><strong>Consent</strong> — HealthKit/Google Fit access, location access, and push notifications, which your device asks you to grant separately, and access to your Garmin data, which you grant when you authorize the connection with Garmin. You can withdraw consent at any time in your device settings, or by disconnecting Garmin, which will limit the related features.</li>
           <li><strong>Legal obligation</strong> — invoicing and accounting records required under Greek tax law.</li>
           <li><strong>Legitimate interest</strong> — keeping the App secure, preventing abuse of the points/rewards system, and improving reliability.</li>
         </ul>
@@ -144,6 +145,7 @@
           <li><strong><a href="https://stripe.com/" target="_blank" rel="noopener">Stripe</a></strong> — payment processing for event registrations and subscriptions.</li>
           <li><strong><a href="https://onesignal.com/" target="_blank" rel="noopener">OneSignal</a></strong> — push notifications.</li>
           <li><strong>Apple (HealthKit) / Google (Google Fit)</strong> — the platform health/fitness frameworks your device uses to share workout data with the App, governed by Apple's and Google's own health-data rules.</li>
+          <li><strong><a href="https://platform.stridee.com/" target="_blank" rel="noopener">Stridee</a></strong> — connects your Garmin account to the App and delivers the Garmin activities you've authorized us to read. Stridee processes that data only on our behalf and does not use it for its own purposes.</li>
           <li><strong><a href="https://www.elorus.com/" target="_blank" rel="noopener">Elorus</a></strong> — Greek-compliant invoice generation for paid events and subscriptions.</li>
           <li><strong><a href="https://supabase.com/" target="_blank" rel="noopener">Supabase</a></strong> — hosts the App's database, where your account, activity, and event data is stored at rest.</li>
           <li><strong><a href="https://www.hetzner.com/" target="_blank" rel="noopener">Hetzner</a></strong> — cloud hosting for the App's backend services, on data centers <a href="https://www.hetzner.com/unternehmen/zertifizierung/" target="_blank" rel="noopener">certified to ISO 27001</a> (information security management) and ISO 9001. These backend instances are ephemeral compute — they don't hold a persistent copy of your data, which lives in Supabase instead.</li>
@@ -156,27 +158,45 @@
         <h2>AI and your health data</h2>
         <p>Your health and activity data is never shared with, sent to, or processed by an external AI provider. Concretely:</p>
         <ul class="doc-list">
-          <li>Workout data reaching the App — today from Apple HealthKit or Google Fit, and from any additional fitness service or device we may support in future, such as Garmin — is not transmitted to any third-party AI, machine-learning, or large-language-model service, including general-purpose AI assistants and AI features built into other tools we use.</li>
+          <li>Workout data reaching the App — today from Apple HealthKit, Google Fit or Garmin, and from any additional fitness service or device we may support in future — is not transmitted to any third-party AI, machine-learning, or large-language-model service, including general-purpose AI assistants and AI features built into other tools we use.</li>
           <li>We do not use your health, activity, or location data to train, fine-tune, or evaluate AI models, whether our own or a third party's, and we do not permit our service providers to do so with the data we entrust to them.</li>
           <li>The features that read your workouts — run sync, event validation, points, and your personal map — are computed by our own backend using deterministic rules, not by an AI service.</li>
         </ul>
         <p>If we ever build a feature that does rely on an external AI provider to process your health data, we will update this policy, name the provider in the list above, and ask for your explicit consent before that processing begins.</p>
       </section>
 
-      <section class="doc-section" id="transfers">
+      <section class="doc-section" id="garmin">
         <p class="doc-num">07</p>
+        <h2>Garmin data</h2>
+        <p>You can connect your Garmin account to the App. Connecting is optional, and we read your Garmin data only after you authorize the connection on Garmin's own sign-in and consent screen. Until you do, we receive nothing from Garmin.</p>
+        <p><strong>What we read.</strong> The activities you record on your Garmin device and sync to Garmin Connect: activity type, start time, duration, distance, pace, heart rate where your device records it, and the GPS track.</p>
+        <p><strong>What we use it for.</strong> Only to provide the App's features to you:</p>
+        <ul class="doc-list">
+          <li>Sync your runs into the App, and recognize the same run when it also reaches us from Apple HealthKit or Google Fit, so it's counted once.</li>
+          <li>Validate check-in and completion for events you've registered for.</li>
+          <li>Award points, streaks and badges, and fill in the blocks on your personal map from the GPS track.</li>
+          <li>Run automated plausibility checks, for example rejecting impossible paces, to keep points and leaderboards fair.</li>
+        </ul>
+        <p><strong>Not sold, not used for advertising.</strong> We never sell or rent your Garmin data, and we never use it for advertising, marketing or profiling. As section 6 explains, it's never sent to an AI provider or used to train AI models.</p>
+        <p><strong>Who else processes it.</strong> <a href="https://platform.stridee.com/" target="_blank" rel="noopener">Stridee</a> handles the connection to Garmin and delivers your activities to us, and our database host Supabase stores them. Both process the data only on our behalf, under contracts that stop them using it for their own purposes. We don't share your Garmin data with anyone else, other than where the law requires it.</p>
+        <p><strong>How long we keep it.</strong> We keep the runs imported from Garmin for as long as your Garmin account stays connected and your App account is active. The raw activity messages Stridee delivers to us are deleted within 30 days of being processed.</p>
+        <p><strong>How to disconnect.</strong> In the App, open <strong>Integrations</strong>, choose Garmin and tap <strong>Disconnect</strong>. You can also remove the App from the connected apps in your Garmin Connect account settings. Either way, we stop receiving data straight away, our access is revoked at Stridee, and we delete the Garmin data we hold about you, including imported runs and their GPS tracks, within 30 days. If you delete your App account, your Garmin data is deleted with it.</p>
+      </section>
+
+      <section class="doc-section" id="transfers">
+        <p class="doc-num">08</p>
         <h2>International transfers</h2>
         <p>Our hosting provider, Hetzner, runs the App's ephemeral backend services on data centers located in the EU, so that infrastructure does not by itself involve a transfer of your data outside the European Economic Area. Our database, hosted with Supabase, and some of the other processors listed above, may still process or store data outside the EEA. Where that happens, we rely on appropriate safeguards recognized under GDPR, such as the European Commission's Standard Contractual Clauses or an applicable adequacy decision, to ensure your data stays protected.</p>
       </section>
 
       <section class="doc-section" id="retention">
-        <p class="doc-num">08</p>
+        <p class="doc-num">09</p>
         <h2>Data retention</h2>
         <p>We keep your account and activity data for as long as your account is active. If you delete your account, we delete or anonymize your personal data within a reasonable period, except where we're required to keep it for longer — most notably invoices and accounting records, which Greek tax law requires us to retain for a set number of years regardless of account status.</p>
       </section>
 
       <section class="doc-section" id="security">
-        <p class="doc-num">09</p>
+        <p class="doc-num">10</p>
         <h2>Security</h2>
         <p>We use industry-standard safeguards to protect your data:</p>
         <ul class="doc-list">
@@ -191,31 +211,31 @@
       </section>
 
       <section class="doc-section" id="your-rights">
-        <p class="doc-num">10</p>
+        <p class="doc-num">11</p>
         <h2>Your rights</h2>
         <p>If GDPR or another data protection law applies to you, you have rights over your personal data — including access, correction, deletion, and portability. See our <a href="gdpr.html">GDPR &amp; your data rights</a> page for the full list and how to exercise them.</p>
       </section>
 
       <section class="doc-section" id="children">
-        <p class="doc-num">11</p>
+        <p class="doc-num">12</p>
         <h2>Children's privacy</h2>
         <p>Action Rise Community is not directed at children and is not intended for use by anyone under the age of 16, or the digital consent age set by your country's law if lower. We do not knowingly collect personal data from children below that age. If you believe a child has provided us with personal data, please contact us and we'll delete it.</p>
       </section>
 
       <section class="doc-section" id="cookies">
-        <p class="doc-num">12</p>
+        <p class="doc-num">13</p>
         <h2>Cookies on this website</h2>
         <p>This marketing website does not set tracking or advertising cookies. Loading the page requests web fonts from Google Fonts, which may receive your device's IP address as part of that request. The mobile app's use of data is described in the sections above, not by cookies.</p>
       </section>
 
       <section class="doc-section" id="changes">
-        <p class="doc-num">13</p>
+        <p class="doc-num">14</p>
         <h2>Changes to this policy</h2>
         <p>We may update this policy as the App changes. We'll update the "Last updated" date above, and where a change is material, we'll let you know in the App before it takes effect.</p>
       </section>
 
       <section class="doc-section" id="contact">
-        <p class="doc-num">14</p>
+        <p class="doc-num">15</p>
         <h2>Contact us</h2>
         <p>Questions about this policy or how we handle your data:</p>
         <div class="entity-card">
